@@ -1,0 +1,59 @@
+{% extends 'base_with_nav.html' %}
+
+{% load static %}
+
+{% block head %}
+    <link rel='stylesheet' href="{% static 'css/index.css' %}">
+    <script>
+        function checkFlag(challenge_id) {
+            $.ajax({
+                type : 'POST',
+                url: "{% url 'main:validate_flag' %}",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    dataType: 'json',
+                    challenge_id: challenge_id,
+                    flag: $("#" + challenge_id).val(),
+                },
+                success: function(data) {
+                    if (data.result == "success") {
+                        $("#box" + challenge_id).removeClass("available").addClass("completed");                        
+                    } else {
+                        $("#" + challenge_id).css("background-color", "red");
+                    }
+                },
+                failure: function() {
+                    $("#" + challenge_id).css("background-color", "red");
+                }
+            });
+        }
+    </script>
+{% endblock %}
+
+{% block main %}
+    <div class='row'>
+        {% for challenge, status in challenges_dict.items %}
+            <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                <div id="box{{ status.0.id }}" class="box {% if status.1 == 'available' %}available{% elif status.1 == 'completed' %}completed{% else %}locked{% endif %}">
+                    <div class="centered-div">
+                        <h4>{{ status.0.name }}</h4>
+                        <p>Points: {{ status.0.points }}</p>
+                    </div>
+                    <div class="left-div">
+                        {% if status.0.exclusive %}
+                            <p>This challenge's points are only available to the first class to complete it.</p>
+                        {% elif status.1 == 'locked' %}
+                            <p>This challenge was exclusive and has already been completed by another class.</p>
+                        {% endif %}
+                        <p>{{ status.0.description }}</p>
+                    </div>
+                    {% if status.1 == 'available' %}
+                        <hr>
+                        <input type="text" id="{{ status.0.id }}" placeholder="Enter the flag here"/>
+                        <input type="submit" value="Submit" onclick="checkFlag({{ status.0.id }})" />
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
