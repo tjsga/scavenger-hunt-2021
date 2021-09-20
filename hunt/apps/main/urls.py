@@ -8,4 +8,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("overview/", views.overview, name="overview"),
     path("validate/", views.validate_flag, name="validate_flag"),
+    path("challenge/<int:challenge_id>", views.challenge_detail, name="challenge_detail")
 ]

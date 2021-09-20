@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'ckeditor',
     'hunt.apps.main',
     'hunt.apps.auth',
     'hunt.apps.users',
