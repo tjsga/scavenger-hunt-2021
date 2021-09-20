@@ -15,7 +15,7 @@ class Challenge(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
     short_description = models.CharField(max_length=500, null=False, blank=False)
     description = RichTextField(null=False, blank=False)
-    flag = models.CharField(max_length=50, null=False, blank=False)
+    flag = models.CharField(max_length=100, null=False, blank=False)
     points = models.IntegerField(null=False, blank=False)
     exclusive = models.BooleanField(default=False)
     locked = models.BooleanField(default=False)
