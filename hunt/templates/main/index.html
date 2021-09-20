@@ -44,29 +44,30 @@
             <div id="c-{{ category.id }}" class='row'>
                 {% for challenge, status in challenges.items %}
                     {% if status.0.unblocked %}
-                        <div id="box{{ status.0.id }}" class="box {% if status.1 == 'available' %}available{% elif status.1 == 'completed' %}completed{% else %}locked{% endif %} p-3">
-                            <div class="centered-div">
-                                <h4>{{ status.0.name }}</h4>
-                                <p>Points: {{ status.0.points }}</p>
-                            </div>
-                            <div class="{% if status.1 == 'completed' %}center{% else %}left{% endif %}-div">
-                                {% if status.0.exclusive %}
-                                    <p>This challenge's points are only available to the first class to complete it.</p>
-                                    <p>{{ status.0.short_description }}</p>    
-                                {% elif status.1 == 'locked' %}
-                                    <p>This challenge was exclusive and has already been completed by another class.</p>
-                                {% elif status.1 == 'completed' %}
-                                    <h3>Solved!</h3>
-                                {% else %}
-                                    <p>{{ status.0.short_description }}</p>
+                        <a href="#" class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                            <div id="box{{ status.0.id }}" class="box {% if status.1 == 'available' %}available{% elif status.1 == 'completed' %}completed{% else %}locked{% endif %} p-3">
+                                <div class="centered-div">
+                                    <h4>{{ status.0.name }}</h4>
+                                    <p>Points: {{ status.0.points }}</p>
+                                </div>
+                                <div class="{% if status.1 == 'completed' %}center{% else %}left{% endif %}-div">
+                                    {% if status.0.exclusive %}
+                                        <p>This challenge's points are only available to the first class to complete it.</p>
+                                        <p>{{ status.0.short_description }}</p>    
+                                    {% elif status.1 == 'locked' %}
+                                        <p>This challenge was exclusive and has already been completed by another class.</p>
+                                    {% elif status.1 == 'completed' %}
+                                        <h3>Solved!</h3>
+                                    {% else %}
+                                        <p>{{ status.0.short_description }}</p>
+                                    {% endif %}
+                                </div>
+                                {% if status.1 == 'available' %}
+                                    <hr>
+                                    <input type="text" id="{{ status.0.id }}" placeholder="Enter the flag here"/>
+                                    <input type="submit" value="Submit" onclick="checkFlag({{ status.0.id }})" />
                                 {% endif %}
                             </div>
-                            {% if status.1 == 'available' %}
-                                <hr>
-                                <input type="text" id="{{ status.0.id }}" placeholder="Enter the flag here"/>
-                                <input type="submit" value="Submit" onclick="checkFlag({{ status.0.id }})" />
-                            {% endif %}
-                        </div>
                     {% else %}
                         <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
                             <div id="box{{ status.0.id }}" class="box locked p-3">
