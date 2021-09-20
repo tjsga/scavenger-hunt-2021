@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextField
 class Category(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     name = models.CharField(max_length=200, null=False, blank=False)
-    category = models.CharField(max_length=200, null=False, blank=False)
+    description = models.CharField(max_length=200, null=False, blank=False)
 
     def __str__(self):
         return self.name

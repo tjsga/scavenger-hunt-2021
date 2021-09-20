@@ -38,6 +38,9 @@
                 <h1 class="ml-3">{{ category.name }}</h1>
                 <p style="cursor: pointer;" onclick="document.getElementById('c-{{ category.id }}').style.display = document.getElementById('c-{{ category.id }}').style.display === 'none' ? 'flex' : 'none'" class="ml-auto mr-3 btn btn-primary">toggle</p>
             </div>
+            <div class="row">
+                <p class="ml-2 font-italic">{{category.description}}</p>
+            </div>
             <div id="c-{{ category.id }}" class='row'>
                 {% for challenge, status in challenges.items %}
                     {% if status.0.unblocked %}
