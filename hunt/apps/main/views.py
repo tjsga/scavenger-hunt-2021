@@ -74,4 +74,7 @@ def validate_flag(request):
         return JsonResponse(response)
     else:
         return PermissionDenied
-    
+
+@login_required
+def support(request):
+    return render(request, 'main/support.html')
