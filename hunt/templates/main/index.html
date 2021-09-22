@@ -44,7 +44,7 @@
             <div id="c-{{ category.id }}" class='row'>
                 {% for challenge, status in challenges.items %}
                     {% if status.0.unblocked %}
-                        <a href="#" class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                        <a class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
                             <div id="box{{ status.0.id }}" class="box {% if status.1 == 'available' %}available{% elif status.1 == 'completed' %}completed{% else %}locked{% endif %} p-3">
                                 <div class="centered-div">
                                     <h4>{{ status.0.name }}</h4>
